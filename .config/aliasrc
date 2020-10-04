@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# Verbosity and desired settings
+alias \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	mkdir="mkdir -pv"
+
+# Colour when possible
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto"
+
+# Common abbreviations
+alias \
+	e="$EDITOR" \
+	g="git" \
+	p="yay" \
+	sdn="sudo shutdown -h now" \
+	v="$EDITOR"
+
+# Dotfiles Git Bare Repo
+alias dfg="/usr/bin/git --git-dir=$HOME/Repositories/github.com/mshaugh/dotfiles --work-tree=$HOME"
+
+# Alternatives
+
+[ -x "$(command -v bat)" ] && alias cat="bat"
+[ -x "$(command -v fd)" ] && alias find="fd"
+[ -x "$(command -v rg)" ] && alias grep="rg"
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"

@@ -1,0 +1,8 @@
+[commit]
+	gpgsign = true
+[user]
+	signingKey = 873EF6A9DF7E277D
+	name = Max Shaughnessy
+	email = max@mshaugh.com
+[core]
+	excludesFile = ~/.config/git/ignore
