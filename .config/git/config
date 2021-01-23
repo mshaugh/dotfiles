@@ -1,8 +1,17 @@
-[commit]
-	gpgsign = true
 [user]
-	signingKey = 873EF6A9DF7E277D
 	name = Max Shaughnessy
 	email = max@mshaugh.com
+	signingKey = 873EF6A9DF7E277D
 [core]
 	excludesFile = ~/.config/git/ignore
+[color]
+	ui = auto
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true
+[alias]
+	aliases = !git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'
+	lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
+[init]
+	defaultBranch = master
