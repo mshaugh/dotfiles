@@ -1,0 +1,61 @@
+#!/bin/sh
+
+PROG="maim"
+OUT="${XDG_PICTURE_DIR:-$HOME/Pictures}/screenshots/$(date '+%Y%m%dT%H%M%S').png"
+
+current_window() {
+	[ -n "$copy" ] &&
+	{ $PROG -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png ;} ||
+	{ $PROG -i $(xdotool getactivewindow) "$OUT" ;}
+}
+
+fullscreen() {
+	[ -n "$copy" ] &&
+	{ $PROG | xclip -selection clipboard -t image/png ;} ||
+	{ $PROG "$OUT" ;}
+}
+
+selection() {
+	[ -n "$copy" ] &&
+	{ $PROG -s | xclip -selection clipboard -t image/png ;} ||
+	{ $PROG -s "$OUT" ;}
+}
+
+dmenu_selection() {
+	case "$(printf "Selection\\nCurrent Window\\nFull Screen\\nSelection (Copy)\\nCurrent Window(Copy)\\nFull Screen (Copy)" | dmenu -l 6 -i -p "Screenshot which area?")" in
+	    "Selection") selection ;;
+	    "Current Window") current_window ;;
+	    "Full Screen") fullscreen ;;
+	    "Selection (Copy)") copy="1" && selection ;;
+	    "Current Window (Copy)") copy="1" && current_window ;;
+	    "Full Screen (Copy)") copy="1" && fullscreen ;;
+	esac
+
+}
+
+while getopts "cdhm:" o; do case "${o}" in
+	c) copy="1" ;;
+	m) mode="$OPTARG" ;;
+esac done
+
+case "${mode}" in
+	d) dmenu_selection ;;
+	f) fullscreen ;;
+	s) selection ;;
+	w) current_window ;;
+	*) cat << EOF
+screenshot
+
+Main modes:
+    d	dmenu
+    f	Full Screen
+    s	Selection
+    w	Current Window
+
+Options:
+    -c	Copy screenshot to clipboard
+    -m	Main mode
+EOF
+exit 1
+;;
+esac
