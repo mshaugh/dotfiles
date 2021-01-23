@@ -1,0 +1,6 @@
+#!/bin/sh
+
+case "$(printf "Shutdown\\nReboot" | dmenu -l 2 -i -p "Power Options")" in
+	"Shutdown") systemctl poweroff ;;
+	"Reboot") systemctl reboot ;;
+esac
